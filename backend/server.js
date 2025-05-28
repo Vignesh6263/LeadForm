@@ -7,7 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 5005;
 
 app.use(cors({
-  origin: "https://lead-alert-frontend.vercel.app",
+  origin: "https://lead-form-ten-hazel.vercel.app",
   methods: ["POST", "GET", "OPTIONS"],
   allowedHeaders: ["Content-Type"],
 }));
@@ -21,7 +21,7 @@ app.post("/api/leads", async (req, res) => {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ error: "Invalid email" });
 
   try {
-    await axios.post("https://email-server-bzuk.onrender.com/webhook/webhook", {
+    await axios.post("http://localhost:5678/webhook/lead", {
       name, email, company, message
     });
     res.status(200).json({ message: "Lead submitted" });
