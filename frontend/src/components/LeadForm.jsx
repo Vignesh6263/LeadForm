@@ -42,7 +42,7 @@ export default function LeadForm() {
     
     setLoading(true);
     try {
-      const response = await fetch("https://lead-server.onrender.com/api/leads", {
+      const response = await fetch("https://leadform-r53p.onrender.com/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -51,7 +51,7 @@ export default function LeadForm() {
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Submission failed");
       
-      setSuccess("Lead submitted successfully!");
+      setSuccess("Lead submitted successfully! Our team will reach out soon.");
       setFormData({ name: "", email: "", company: "", message: "" });
     } catch (error) {
       setErrors({ submit: error.message || "Submission error" });
@@ -64,8 +64,8 @@ export default function LeadForm() {
     <Container className="lead-form-container">
       <h1 className="form-title">Lead Alert Generator</h1>
       <Form onSubmit={handleSubmit} className="lead-form">
-        {success && <Alert color="success">{success}</Alert>}
-        {errors.submit && <Alert color="danger">{errors.submit}</Alert>}
+        {success && <Alert className="alert-success">{success}</Alert>}
+        {errors.submit && <Alert className="alert-danger">{errors.submit}</Alert>}
         <FormGroup>
           <Label for="name">Name *</Label>
           <Input
@@ -114,7 +114,7 @@ export default function LeadForm() {
             placeholder="Enter your message"
           />
         </FormGroup>
-        <Button type="submit" color="primary" disabled={loading}>
+        <Button type="submit" color="primary" disabled={loading} className="btn-primary">
           {loading ? "Submitting..." : "Submit Lead"}
         </Button>
       </Form>
